@@ -10,8 +10,10 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.springframework.test.context.bean.override.mockito.MockitoBean
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf
+import org.springframework.test.context.ActiveProfiles
 
 @WebMvcTest(ContactController::class)
+@ActiveProfiles("test")
 class ContactControllerTest {
 
     @Autowired
