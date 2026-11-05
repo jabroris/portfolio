@@ -30,3 +30,6 @@ jobs:
 
       - name: Build
         run: ./gradlew build --stacktrace
+
+      - name: Build Docker image
+        run: docker build -t portfolio-app .
