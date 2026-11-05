@@ -21,7 +21,7 @@ class SkillServiceTest {
             Skill(
                 id = 1,
                 name = "Kotlin",
-                level = "Advanced"
+                level = 5
             )
         )
 
