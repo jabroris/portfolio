@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/portfolio
+    username: portfolio
+    password: portfolio
+
+  kafka:
+    bootstrap-servers: localhost:9092
+
+    producer:
+      properties:
+        max.block.ms: 5000
+        request.timeout.ms: 5000
+        acks: all
+        enable.idempotence: true
+
+    consumer:
+      properties:
+        session.timeout.ms: 30000
+        isolation.level: read_committed
+
+  jpa:
+    show-sql: true

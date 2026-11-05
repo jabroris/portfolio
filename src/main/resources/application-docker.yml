@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
+
+    producer:
+      properties:
+        max.block.ms: 5000
+        request.timeout.ms: 5000
+        acks: all
+        enable.idempotence: true
+
+    consumer:
+      properties:
+        session.timeout.ms: 30000
+        isolation.level: read_committed
+
+  jpa:
+    show-sql: false

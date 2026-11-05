@@ -1,0 +1,43 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://postgres:5432/portfolio
+    username: portfolio
+    password: portfolio
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}
+    producer:
+      properties:
+        max.block.ms: 5000
+        request.timeout.ms: 5000
+        acks: all
+        enable.idempotence: true
+    consumer:
+      properties:
+        session.timeout.ms: 30000
+        isolation.level: read_committed
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  info:
+    env:
+      enabled: true
+
+info:
+  app:
+    name: Portfolio Application
+    description: Kotlin + Spring Boot Portfolio
+    version: 1.0.0
+    author: Ivaylo Blagoev
