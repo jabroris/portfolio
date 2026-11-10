@@ -20,4 +20,11 @@ spring:
         isolation.level: read_committed
 
   jpa:
-    show-sql: false
+    hibernate:
+      ddl-auto: create
+
+    defer-datasource-initialization: true
+
+  sql:
+    init:
+      mode: always
