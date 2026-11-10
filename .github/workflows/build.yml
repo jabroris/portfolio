@@ -1,17 +1,18 @@
-name: Build
+name: Build and Deploy
 
 on:
   push:
     branches:
       - master
 
-  pull_request:
-
 jobs:
-
-  build:
+  deploy:
 
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      id-token: write
 
     steps:
 
@@ -25,11 +26,34 @@ jobs:
           java-version: 21
           cache: gradle
 
-      - name: Make Gradle executable
-        run: chmod +x gradlew
-
       - name: Build
-        run: ./gradlew build --stacktrace
+        run: ./gradlew build
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.WIF_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
+      - name: Setup gcloud
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Configure Docker
+        run: gcloud auth configure-docker europe-west1-docker.pkg.dev --quiet
 
       - name: Build Docker image
-        run: docker build -t portfolio-app .
+        run: |
+          docker build -t europe-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/portfolio/portfolio-app:${{ github.sha }} .
+
+      - name: Push Docker image
+        run: |
+          docker push europe-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/portfolio/portfolio-app:${{ github.sha }}
+
+      - name: Deploy Cloud Run
+        run: |
+          gcloud run deploy portfolio-app \
+            --image=europe-west1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/portfolio/portfolio-app:${{ github.sha }} \
+            --platform=managed \
+            --region=europe-west1 \
+            --allow-unauthenticated \
+            --set-env-vars=SPRING_PROFILES_ACTIVE=gcp
