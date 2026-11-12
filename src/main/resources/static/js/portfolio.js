@@ -125,6 +125,59 @@ async function loadActuatorInfo() {
     }
 }
 
+/* ===== PDF EXPORT ===== */
+
+async function downloadResumePdf() {
+    if (!window.html2canvas || !window.jspdf || !window.jspdf.jsPDF) {
+        alert(t('pdfUnavailable', 'PDF export is not available right now. Please refresh the page and try again.'));
+        return;
+    }
+
+    const button = document.getElementById('downloadResumePdfBtn');
+    const resume = document.querySelector('.resume-wrapper');
+    if (!button || !resume) {
+        return;
+    }
+
+    const originalLabel = button.textContent;
+    button.disabled = true;
+    button.textContent = t('generatingPdf', 'Generating PDF...');
+    document.body.classList.add('pdf-export-mode');
+
+    try {
+        const canvas = await window.html2canvas(resume, {
+            scale: 2,
+            useCORS: true,
+            backgroundColor: '#ffffff'
+        });
+
+        const imageData = canvas.toDataURL('image/jpeg', 0.96);
+        const pdf = new window.jspdf.jsPDF('p', 'mm', 'a4');
+        const pageWidth = 210;
+        const pageHeight = 297;
+        const margin = 10;
+        const maxWidth = pageWidth - (margin * 2);
+        const maxHeight = pageHeight - (margin * 2);
+
+        const scale = Math.min(maxWidth / canvas.width, maxHeight / canvas.height);
+        const renderWidth = canvas.width * scale;
+        const renderHeight = canvas.height * scale;
+        const x = (pageWidth - renderWidth) / 2;
+        const y = (pageHeight - renderHeight) / 2;
+
+        pdf.addImage(imageData, 'JPEG', x, y, renderWidth, renderHeight);
+        const currentLang = t('currentLang', 'en');
+        pdf.save(`ivaylo-blagoev-resume-${currentLang}.pdf`);
+    } catch (error) {
+        const message = error && error.message ? error.message : String(error);
+        alert(tf('pdfError', 'Could not generate PDF: {0}', message));
+    } finally {
+        document.body.classList.remove('pdf-export-mode');
+        button.disabled = false;
+        button.textContent = originalLabel || t('downloadResumePdf', 'Download Resume PDF');
+    }
+}
+
 /* ===== HELPERS ===== */
 
 function escapeHtml(text) {
@@ -137,4 +190,9 @@ function escapeHtml(text) {
 document.addEventListener('DOMContentLoaded', () => {
     // Auto-load Kafka events on page load
     loadKafkaEvents();
+
+    const pdfButton = document.getElementById('downloadResumePdfBtn');
+    if (pdfButton) {
+        pdfButton.addEventListener('click', downloadResumePdf);
+    }
 });

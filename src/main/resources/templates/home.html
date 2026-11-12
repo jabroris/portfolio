@@ -70,6 +70,20 @@
             <header class="name-header">
                 <h1 class="full-name" th:text="${profile.name}">IVAYLO BLAGOEV</h1>
                 <p class="job-title" th:text="${profile.title}">Senior Software Engineer</p>
+                <div class="header-controls no-pdf">
+                    <button id="downloadResumePdfBtn" class="download-pdf-btn" type="button" th:text="#{ui.button.downloadResumePdf}">⬇️ Download Resume PDF</button>
+                </div>
+                <div class="lang-switcher-header no-pdf">
+                    <a th:href="@{/(lang='en')}"
+                       th:classappend="${#locale.language == 'en'} ? 'active'"
+                       class="lang-link-header">🇬🇧 English</a>
+                    <a th:href="@{/(lang='bg')}"
+                       th:classappend="${#locale.language == 'bg'} ? 'active'"
+                       class="lang-link-header">🇧🇬 Български</a>
+                    <a th:href="@{/(lang='fr')}"
+                       th:classappend="${#locale.language == 'fr'} ? 'active'"
+                       class="lang-link-header">🇫🇷 Français</a>
+                </div>
             </header>
 
             <section class="content-section">
@@ -262,9 +276,15 @@
         statusSuccessPrefix: /*[[#{js.status.successPrefix}]]*/ "✅ ",
         statusErrorPrefix: /*[[#{js.status.errorPrefix}]]*/ "❌ Error: ",
         actuatorLoadingHealth: /*[[#{js.actuator.loadingHealth}]]*/ "// Loading health data...",
-        actuatorLoadingInfo: /*[[#{js.actuator.loadingInfo}]]*/ "// Loading app info..."
+        actuatorLoadingInfo: /*[[#{js.actuator.loadingInfo}]]*/ "// Loading app info...",
+        downloadResumePdf: /*[[#{js.pdf.download}]]*/ "Download Resume PDF",
+        generatingPdf: /*[[#{js.pdf.generating}]]*/ "Generating PDF...",
+        pdfUnavailable: /*[[#{js.pdf.unavailable}]]*/ "PDF export is not available right now. Please refresh the page and try again.",
+        pdfError: /*[[#{js.pdf.error}]]*/ "Could not generate PDF: {0}"
     };
 </script>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
 <script src="/js/portfolio.js"></script>
 </body>
 </html>
