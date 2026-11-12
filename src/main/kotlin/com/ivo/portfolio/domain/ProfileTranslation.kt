@@ -31,6 +31,9 @@ class ProfileTranslation(
     @Column(nullable = true)
     var title: String? = null,
 
+    @Column(nullable = true)
+    var phone: String? = null,
+
     @Column(nullable = true, columnDefinition = "TEXT")
     var summary: String? = null,
 )

@@ -47,7 +47,7 @@ class ProfileService(
             name = profile.name,
             title = profileTranslation?.title ?: profile.title,
             email = profile.email,
-            phone = profile.phone,
+            phone = profileTranslation?.phone ?: profile.phone,
             summary = profileTranslation?.summary ?: profile.summary,
             github = profile.github,
             education = education(resolvedLocale),

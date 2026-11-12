@@ -13,17 +13,19 @@ VALUES
     );
 
 INSERT INTO profile_translations
-(profile_id, locale, summary, title)
+(profile_id, locale, phone, summary, title)
 VALUES
     (
         1,
         'bg',
+        '+359 887 260 937',
         'Универсален и ориентиран към резултати софтуерен инженер с над десетилетие опит във финтех, екологични технологии, автомобилна индустрия и платформи за залагания. Доказан опит в изграждането на мащабируеми backend системи с Java, Kotlin, Spring Boot и Kafka. Работи уверено в разпределени екипи, създава сигурни и съвместими решения и интегрира сложни корпоративни екосистеми. Фокусиран върху чиста архитектура, непрекъснато подобрение и решаване на реални проблеми чрез код.',
         'Старши софтуерен инженер'
     ),
     (
         1,
         'fr',
+        '+33605864561',
         'Ingénieur logiciel polyvalent et orienté résultats avec plus de dix ans d''expérience dans la fintech, les technologies environnementales, l''automobile et les plateformes de paris. Expertise avérée dans la conception de systèmes backend évolutifs avec Java, Kotlin, Spring Boot et Kafka. Habitué au travail en équipes distribuées, à la livraison de solutions sécurisées et conformes, et à l''intégration dans des écosystèmes d''entreprise complexes. Passionné par l''architecture propre, l''amélioration continue et la résolution de problèmes concrets par le code.',
         'Ingénieur logiciel senior'
     );
