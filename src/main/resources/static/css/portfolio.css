@@ -158,6 +158,64 @@ a:hover { text-decoration: underline; }
     text-transform: uppercase;
 }
 
+.header-controls {
+    margin-top: 12px;
+}
+
+.download-pdf-btn {
+    border: 1px solid rgba(147, 197, 253, 0.55);
+    background: rgba(15, 23, 42, 0.22);
+    color: #e5efff;
+    border-radius: 999px;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+}
+
+.download-pdf-btn:hover {
+    background: rgba(59, 130, 246, 0.28);
+}
+
+.download-pdf-btn:disabled {
+    opacity: 0.7;
+    cursor: wait;
+}
+
+.lang-switcher-header {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.lang-link-header {
+    font-size: 12px;
+    color: #dbeafe;
+    border: 1px solid rgba(147, 197, 253, 0.45);
+    border-radius: 999px;
+    padding: 4px 10px;
+    background: rgba(15, 23, 42, 0.18);
+    text-decoration: none;
+}
+
+.lang-link-header:hover {
+    text-decoration: none;
+    background: rgba(59, 130, 246, 0.25);
+}
+
+.lang-link-header.active {
+    color: #fff;
+    border-color: #93c5fd;
+    background: rgba(59, 130, 246, 0.45);
+    font-weight: 600;
+}
+
+.pdf-export-mode .no-pdf {
+    display: none !important;
+}
+
 .content-section {
     padding: 18px 32px 0;
 }
