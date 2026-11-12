@@ -12,6 +12,22 @@ VALUES
         'Senior Software Engineer'
     );
 
+INSERT INTO profile_translations
+(profile_id, locale, summary, title)
+VALUES
+    (
+        1,
+        'bg',
+        'Универсален и ориентиран към резултати софтуерен инженер с над десетилетие опит във финтех, екологични технологии, автомобилна индустрия и платформи за залагания. Доказан опит в изграждането на мащабируеми backend системи с Java, Kotlin, Spring Boot и Kafka. Работи уверено в разпределени екипи, създава сигурни и съвместими решения и интегрира сложни корпоративни екосистеми. Фокусиран върху чиста архитектура, непрекъснато подобрение и решаване на реални проблеми чрез код.',
+        'Старши софтуерен инженер'
+    ),
+    (
+        1,
+        'fr',
+        'Ingénieur logiciel polyvalent et orienté résultats avec plus de dix ans d''expérience dans la fintech, les technologies environnementales, l''automobile et les plateformes de paris. Expertise avérée dans la conception de systèmes backend évolutifs avec Java, Kotlin, Spring Boot et Kafka. Habitué au travail en équipes distribuées, à la livraison de solutions sécurisées et conformes, et à l''intégration dans des écosystèmes d''entreprise complexes. Passionné par l''architecture propre, l''amélioration continue et la résolution de problèmes concrets par le code.',
+        'Ingénieur logiciel senior'
+    );
+
 
 -- SKILLS
 
@@ -126,6 +142,108 @@ VALUES
         'Sterling, VA, USA',
         'Dec 2011',
         'Software Engineer'
+    );
+
+INSERT INTO experience_translations
+(description, experience_id, locale, location, title)
+VALUES
+    (
+        'Разработвах backend услуги за платформа за залагания с голям мащаб. Архитектиране и поддръжка на микросервизи за екипа Orders. Гарантирах надеждна event-driven комуникация и консистентност на данните в разпределени системи.',
+        1,
+        'bg',
+        'Remote',
+        'Java/Kotlin разработчик'
+    ),
+    (
+        'Реализирах full-stack функционалности за KYC приложението на Skrill. Изграждах сигурни и мащабируеми решения с Java, Spring Boot и модерни frontend технологии. Работех с compliance и product екипи за покриване на регулаторни изисквания.',
+        2,
+        'bg',
+        'Remote, Варна, България',
+        'Софтуерен инженер (контрактор)'
+    ),
+    (
+        'Проектирах и поддържах enterprise софтуерни решения. Водех пълния SDLC от анализ на изискванията до внедряване. Допринасях по SAP проекти.',
+        3,
+        'bg',
+        'Remote, София, България',
+        'Софтуерен инженер'
+    ),
+    (
+        'Разработвах вътрешни и клиентски решения. Интегрирах distributed ledger технологии, включително Corda и Ethereum.',
+        4,
+        'bg',
+        'Remote, София, България',
+        'Софтуерен инженер'
+    ),
+    (
+        'Разработвах forecasting и ticketing софтуер за мрежи от доставчици на BMW. Подпомагах predictive analytics за откриване на производствени затруднения.',
+        5,
+        'bg',
+        'Remote, София, България',
+        'Java инженер'
+    ),
+    (
+        'Създавах софтуер за тестване на сензори за слънчева радиация, използвани в климатични изследвания. Координирах продуктови обновления с R&D за плавна хардуерно-софтуерна интеграция.',
+        6,
+        'bg',
+        'Делфт, Нидерландия',
+        'Софтуерен инженер'
+    ),
+    (
+        'Разработвах и поддържах системи за събиране на екологични данни (DAS, DCS Toolkit). Водех разработката и внедряването на хидрологични платформи. Провеждах международни теренни внедрявания и клиентски обучения.',
+        7,
+        'bg',
+        'Стерлинг, Вирджиния, САЩ',
+        'Софтуерен инженер'
+    ),
+    (
+        'Développement de services backend pour une plateforme de paris à grande échelle. Conception et maintenance de microservices pour l''équipe Orders. Garantie d''une communication event-driven fiable et de la cohérence des données dans des systèmes distribués.',
+        1,
+        'fr',
+        'Télétravail',
+        'Développeur Java/Kotlin'
+    ),
+    (
+        'Développement full-stack pour l''application KYC de Skrill. Création de fonctionnalités sécurisées et évolutives avec Java, Spring Boot et des technologies frontend modernes. Collaboration avec les équipes conformité et produit pour respecter les exigences réglementaires.',
+        2,
+        'fr',
+        'Télétravail, Varna, Bulgarie',
+        'Ingénieur logiciel (prestataire)'
+    ),
+    (
+        'Conception et maintenance de solutions logicielles de niveau entreprise. Pilotage du cycle SDLC de l''analyse des besoins jusqu''au déploiement. Contribution à des projets liés à SAP.',
+        3,
+        'fr',
+        'Télétravail, Sofia, Bulgarie',
+        'Ingénieur logiciel'
+    ),
+    (
+        'Développement de solutions internes et orientées client. Intégration de technologies de registre distribué, notamment Corda et Ethereum.',
+        4,
+        'fr',
+        'Télétravail, Sofia, Bulgarie',
+        'Ingénieur logiciel'
+    ),
+    (
+        'Conception de logiciels de prévision et de ticketing pour les réseaux de fournisseurs BMW. Mise en place d''analyses prédictives pour identifier les goulots d''étranglement de production.',
+        5,
+        'fr',
+        'Télétravail, Sofia, Bulgarie',
+        'Ingénieur Java'
+    ),
+    (
+        'Développement de logiciels de test pour des capteurs de rayonnement solaire utilisés dans la recherche climatique. Coordination des mises à jour produit avec la R&D pour une intégration matérielle-logicielle fluide.',
+        6,
+        'fr',
+        'Delft, Pays-Bas',
+        'Ingénieur logiciel'
+    ),
+    (
+        'Développement et maintenance de systèmes d''acquisition de données environnementales (DAS, DCS Toolkit). Pilotage du développement et du déploiement de plateformes hydrologiques. Réalisation de déploiements terrain internationaux et de formations clients.',
+        7,
+        'fr',
+        'Sterling, Virginie, États-Unis',
+        'Ingénieur logiciel'
     );
 
 

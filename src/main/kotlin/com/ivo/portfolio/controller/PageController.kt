@@ -6,6 +6,7 @@ import com.ivo.portfolio.service.SkillService
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
+import java.util.Locale
 
 
 @Controller
@@ -16,16 +17,19 @@ class PageController(
 ) {
 
     @GetMapping("/")
-    fun home(model: Model): String {
+    fun home(
+        model: Model,
+        locale: Locale
+    ): String {
 
         model.addAttribute(
             "profile",
-            profileService.getProfile()
+            profileService.getProfile(locale)
         )
 
         model.addAttribute(
             "experiences",
-            experienceService.findAll()
+            experienceService.findAll(locale)
         )
 
         model.addAttribute(

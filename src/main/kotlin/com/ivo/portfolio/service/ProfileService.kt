@@ -5,16 +5,22 @@ import com.ivo.portfolio.dto.response.LanguageDto
 import org.springframework.stereotype.Service
 import com.ivo.portfolio.dto.response.ProfileDto
 import com.ivo.portfolio.repository.ProfileRepository
+import com.ivo.portfolio.repository.ProfileTranslationRepository
+import org.springframework.context.MessageSource
+import java.util.Locale
 
 @Service
 class ProfileService(
     private val profileRepository: ProfileRepository,
+    private val profileTranslationRepository: ProfileTranslationRepository,
+    private val messageSource: MessageSource,
 ) {
 
-    fun getProfile(): ProfileDto {
+    fun getProfile(locale: Locale): ProfileDto {
+        val resolvedLocale = resolveLocale(locale)
         val profile = profileRepository.findAll().firstOrNull() ?: return ProfileDto(
             name = "Ivaylo Blagoev",
-            title = "Senior Software Engineer",
+            title = message("profile.default.title", resolvedLocale),
             summary =
                 """
                         Versatile and results-driven Software Engineer with over a decade of experience across fintech,
@@ -26,54 +32,64 @@ class ProfileService(
             email = "inblagoev@gmail.com",
             phone = "+359 887 260 937",
             github = "www.github.com/jabroris",
-            education =
-                EducationDto(
-                    period = "2007 – 2011", // Hardcoded period for now
-                    institution = "George Mason University, USA", // Hardcoded institution for now
-                    degree = "BSc in Computer Science" // Hardcoded degree for now
-                ),
-            language = mutableListOf(
-                LanguageDto(name = "English", level = "Fluent", percentage = 90),
-                LanguageDto(name = "Bulgarian", level = "Native", percentage = 100),
-                LanguageDto(name = "French", level = "Beginner", percentage = 20)
-            ),
-            softSkills = mutableListOf(
-                "Clear communication",
-                "Problem solving",
-                "Teamwork",
-                "Adaptability",
-                "Autonomy",
-                "Cultural & professional flexibility",
-                "Knowledge sharing"
-            )
+            education = education(resolvedLocale),
+            language = languages(resolvedLocale),
+            softSkills = softSkills(resolvedLocale)
         )
+
+        val profileTranslation = if (profile.id != null && resolvedLocale.language != "en") {
+            profileTranslationRepository.findByProfileIdAndLocale(profile.id!!, resolvedLocale.language)
+        } else {
+            null
+        }
+
         return ProfileDto(
             name = profile.name,
-            title = profile.title,
+            title = profileTranslation?.title ?: profile.title,
             email = profile.email,
             phone = profile.phone,
-            summary = profile.summary,
+            summary = profileTranslation?.summary ?: profile.summary,
             github = profile.github,
-            education =
-                EducationDto(
-                    period = "2007 – 2011", // Hardcoded period for now
-                    institution = "George Mason University, USA", // Hardcoded institution for now
-                    degree = "BSc in Computer Science" // Hardcoded degree for now
-                ),
-            language = mutableListOf(
-                LanguageDto(name = "English", level = "Fluent", percentage = 90),
-                LanguageDto(name = "Bulgarian", level = "Native", percentage = 100),
-                LanguageDto(name = "French", level = "Beginner", percentage = 20)
-            ),
-            softSkills = mutableListOf(
-                "Clear communication",
-                "Problem solving",
-                "Teamwork",
-                "Adaptability",
-                "Autonomy",
-                "Cultural & professional flexibility",
-                "Knowledge sharing"
-            )
+            education = education(resolvedLocale),
+            language = languages(resolvedLocale),
+            softSkills = softSkills(resolvedLocale)
         )
+    }
+
+    private fun education(locale: Locale): EducationDto =
+        EducationDto(
+            period = message("profile.education.period", locale),
+            institution = message("profile.education.institution", locale),
+            degree = message("profile.education.degree", locale)
+        )
+
+    private fun languages(locale: Locale): MutableList<LanguageDto> =
+        mutableListOf(
+            LanguageDto(name = message("profile.language.english", locale), level = message("profile.level.fluent", locale), percentage = 90),
+            LanguageDto(name = message("profile.language.bulgarian", locale), level = message("profile.level.native", locale), percentage = 100),
+            LanguageDto(name = message("profile.language.french", locale), level = message("profile.level.beginner", locale), percentage = 20)
+        )
+
+    private fun softSkills(locale: Locale): MutableList<String> =
+        mutableListOf(
+            message("profile.softskill.1", locale),
+            message("profile.softskill.2", locale),
+            message("profile.softskill.3", locale),
+            message("profile.softskill.4", locale),
+            message("profile.softskill.5", locale),
+            message("profile.softskill.6", locale),
+            message("profile.softskill.7", locale)
+        )
+
+    private fun message(key: String, locale: Locale): String =
+        messageSource.getMessage(key, null, key, locale) ?: key
+
+    private fun resolveLocale(locale: Locale): Locale {
+        val language = locale.language.lowercase(Locale.ROOT)
+        return if (language in supportedLocales) Locale.forLanguageTag(language) else Locale.ENGLISH
+    }
+
+    companion object {
+        private val supportedLocales = setOf("en", "bg", "fr")
     }
 }
