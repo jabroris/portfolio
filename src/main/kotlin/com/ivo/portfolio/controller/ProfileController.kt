@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import com.ivo.portfolio.service.ProfileService
+import java.util.Locale
 
 @RestController
 @RequestMapping("/api/profile")
@@ -12,6 +13,6 @@ class ProfileController(
 ) {
 
     @GetMapping
-    fun getProfile() =
-        profileService.getProfile()
+    fun getProfile(locale: Locale) =
+        profileService.getProfile(locale)
 }

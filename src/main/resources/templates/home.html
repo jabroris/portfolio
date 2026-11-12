@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" th:lang="${#locale.language}" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +9,11 @@
     <link rel="stylesheet" href="/css/portfolio.css">
 </head>
 <body>
+<div class="lang-switcher" style="display:flex;justify-content:flex-end;gap:12px;padding:12px 20px;">
+    <a th:href="@{/(lang='en')}">English</a>
+    <a th:href="@{/(lang='bg')}">Български</a>
+    <a th:href="@{/(lang='fr')}">Français</a>
+</div>
 
 <!-- ===== RESUME SECTION ===== -->
 <div class="resume-wrapper">
@@ -21,7 +26,7 @@
             </div>
 
             <section class="sidebar-section">
-                <h4 class="sidebar-heading">CONTACT</h4>
+                <h4 class="sidebar-heading" th:text="#{ui.contact}">CONTACT</h4>
                 <div class="contact-item">
                     <span class="icon">📞</span>
                     <span th:text="${profile.phone}">+359 887 260 937</span>
@@ -33,14 +38,14 @@
             </section>
 
             <section class="sidebar-section">
-                <h4 class="sidebar-heading">EDUCATION</h4>
+                <h4 class="sidebar-heading" th:text="#{ui.education}">EDUCATION</h4>
                 <p class="edu-period" th:text="${profile.education.period}">2007 – 2011</p>
                 <p class="edu-school" th:text="${profile.education.institution}">George Mason University, USA</p>
                 <p class="edu-degree" th:text="${profile.education.degree}">BSc in Computer Science</p>
             </section>
 
             <section class="sidebar-section">
-                <h4 class="sidebar-heading">LANGUAGES</h4>
+                <h4 class="sidebar-heading" th:text="#{ui.languages}">LANGUAGES</h4>
                 <div th:each="lang : ${profile.language}" class="lang-item">
                     <div class="lang-row">
                         <span class="lang-name" th:text="${lang.name}">English</span>
@@ -53,7 +58,7 @@
             </section>
 
             <section class="sidebar-section">
-                <h4 class="sidebar-heading">COMPETENCES</h4>
+                <h4 class="sidebar-heading" th:text="#{ui.competences}">COMPETENCES</h4>
                 <ul class="competences-list">
                     <li th:each="skill : ${profile.softSkills}" th:text="${skill}">Clear communication</li>
                 </ul>
@@ -68,12 +73,12 @@
             </header>
 
             <section class="content-section">
-                <h3 class="section-heading">PROFILE</h3>
+                <h3 class="section-heading" th:text="#{ui.profile}">PROFILE</h3>
                 <p class="profile-summary" th:text="${profile.summary}">Summary text</p>
             </section>
 
             <section class="content-section">
-                <h3 class="section-heading">EXPERIENCE</h3>
+                <h3 class="section-heading" th:text="#{ui.experience}">EXPERIENCE</h3>
                 <div th:each="exp : ${experiences}" class="exp-item">
                     <div class="exp-header">
                         <span class="exp-title" th:text="${exp.title}">Title</span>
@@ -94,13 +99,13 @@
 <div class="demo-wrapper">
     <div class="demo-container">
         <div class="demo-header">
-            <h2>🚀 Live Skills Demo</h2>
-            <p>This page is served by a Spring Boot + Kotlin application. Interact with the features below to see the technologies in action.</p>
+            <h2 th:text="#{ui.demo.title}">🚀 Live Skills Demo</h2>
+            <p th:text="#{ui.demo.subtitle}">This page is served by a Spring Boot + Kotlin application. Interact with the features below to see the technologies in action.</p>
         </div>
 
         <!-- TECH STACK BADGES -->
         <div class="demo-section" id="tech-stack">
-            <h3 class="demo-section-title">⚙️ Tech Stack</h3>
+            <h3 class="demo-section-title" th:text="#{ui.techStack}">⚙️ Tech Stack</h3>
             <div class="badge-grid" th:each="entry : ${skillsByCategory}">
                 <div class="badge-category">
                     <h4 class="badge-cat-name" th:text="${entry.key}">Category</h4>
@@ -120,74 +125,76 @@
 
         <!-- REST API DEMO -->
         <div class="demo-section" id="api-demo">
-            <h3 class="demo-section-title">🔌 REST API Demo <span class="tag-badge">Spring MVC + Jackson</span></h3>
-            <p class="demo-desc">Live calls to the REST API backed by Spring Data JPA + H2 in-memory database.</p>
+            <h3 class="demo-section-title">🔌 <span th:text="#{ui.restDemo}">REST API Demo</span> <span class="tag-badge">Spring MVC + Jackson</span></h3>
+            <p class="demo-desc" th:text="#{ui.restDemo.desc}">Live calls to the REST API backed by Spring Data JPA + H2 in-memory database.</p>
             <div class="demo-controls">
-                <button class="demo-btn" onclick="loadExperiences()">Load All Experiences</button>
+                <button class="demo-btn" onclick="loadExperiences()" th:text="#{ui.button.loadExperiences}">Load All Experiences</button>
                 <div class="search-row">
-                    <input id="techSearch" type="text" placeholder="Search by technology (e.g. Kafka)" class="demo-input"/>
-                    <button class="demo-btn" onclick="searchByTech()">Search</button>
+                    <input id="techSearch" type="text" th:placeholder="#{ui.placeholder.searchTech}" placeholder="Search by technology (e.g. Kafka)" class="demo-input"/>
+                    <button class="demo-btn" onclick="searchByTech()" th:text="#{ui.button.search}">Search</button>
                 </div>
             </div>
-            <pre id="api-result" class="code-output">// Click a button above to make a live API call</pre>
+            <pre id="api-result" class="code-output" th:text="#{ui.apiResult.default}">// Click a button above to make a live API call</pre>
         </div>
 
         <!-- KAFKA DEMO -->
         <div class="demo-section" id="kafka-demo">
-            <h3 class="demo-section-title">⚡ Kafka Event Demo <span class="tag-badge">Apache Kafka + Spring Kafka</span></h3>
+            <h3 class="demo-section-title">⚡ <span th:text="#{ui.kafkaDemo}">Kafka Event Demo</span> <span class="tag-badge">Apache Kafka + Spring Kafka</span></h3>
             <p class="demo-desc">
-                Publish messages to the <code>portfolio-events</code> Kafka topic. Events are consumed by a
-                <code>@KafkaListener</code> and persisted to H2. Run <code>docker-compose up</code> to enable Kafka.
+                <span th:text="#{ui.kafkaDemo.desc.1}">Publish messages to the</span> <code>portfolio-events</code>
+                <span th:text="#{ui.kafkaDemo.desc.2}">Kafka topic. Events are consumed by a</span>
+                <code>@KafkaListener</code> <span th:text="#{ui.kafkaDemo.desc.3}">and persisted to H2. Run</span>
+                <code>docker-compose up</code> <span th:text="#{ui.kafkaDemo.desc.4}">to enable Kafka.</span>
             </p>
             <div class="demo-controls">
                 <div class="search-row">
-                    <input id="kafkaMessage" type="text" placeholder="Enter a message to publish..." class="demo-input" value="Hello from the portfolio demo!"/>
-                    <button class="demo-btn primary" onclick="publishKafkaEvent()">Publish Event</button>
+                    <input id="kafkaMessage" type="text" th:placeholder="#{ui.placeholder.kafkaMessage}" placeholder="Enter a message to publish..." class="demo-input" th:value="#{ui.default.kafkaMessage}"/>
+                    <button class="demo-btn primary" onclick="publishKafkaEvent()" th:text="#{ui.button.publishEvent}">Publish Event</button>
                 </div>
-                <button class="demo-btn" onclick="loadKafkaEvents()">Refresh Event Log</button>
+                <button class="demo-btn" onclick="loadKafkaEvents()" th:text="#{ui.button.refreshEventLog}">Refresh Event Log</button>
             </div>
             <div id="kafka-status" class="status-msg"></div>
             <table class="event-table" id="kafka-event-table">
                 <thead>
                 <tr>
                     <th>#</th>
-                    <th>Direction</th>
-                    <th>Message</th>
-                    <th>Status</th>
-                    <th>Timestamp</th>
+                    <th th:text="#{ui.table.direction}">Direction</th>
+                    <th th:text="#{ui.table.message}">Message</th>
+                    <th th:text="#{ui.table.status}">Status</th>
+                    <th th:text="#{ui.table.timestamp}">Timestamp</th>
                 </tr>
                 </thead>
                 <tbody id="kafka-event-body">
-                <tr><td colspan="5" class="empty-row">No events yet. Publish a message above.</td></tr>
+                <tr><td colspan="5" class="empty-row" th:text="#{ui.kafka.empty}">No events yet. Publish a message above.</td></tr>
                 </tbody>
             </table>
         </div>
 
         <!-- SPRING SECURITY INFO -->
         <div class="demo-section" id="security-demo">
-            <h3 class="demo-section-title">🔒 Spring Security <span class="tag-badge">Spring Security 6</span></h3>
-            <p class="demo-desc">The application uses Spring Security with the following configuration:</p>
+            <h3 class="demo-section-title">🔒 <span th:text="#{ui.security.title}">Spring Security</span> <span class="tag-badge">Spring Security 6</span></h3>
+            <p class="demo-desc" th:text="#{ui.security.desc}">The application uses Spring Security with the following configuration:</p>
             <div class="security-grid">
                 <div class="security-item public">
                     <span class="sec-icon">🌐</span>
                     <div>
-                        <strong>Public (No Auth)</strong>
+                        <strong th:text="#{ui.security.public}">Public (No Auth)</strong>
                         <ul>
-                            <li><code>/</code> – This resume page</li>
-                            <li><code>/api/**</code> – All REST endpoints</li>
-                            <li><code>/swagger-ui/**</code> – API docs</li>
-                            <li><code>/actuator/**</code> – Health &amp; metrics</li>
+                            <li><code>/</code> – <span th:text="#{ui.security.public.resume}">This resume page</span></li>
+                            <li><code>/api/**</code> – <span th:text="#{ui.security.public.api}">All REST endpoints</span></li>
+                            <li><code>/swagger-ui/**</code> – <span th:text="#{ui.security.public.docs}">API docs</span></li>
+                            <li><code>/actuator/**</code> – <span th:text="#{ui.security.public.metrics}">Health &amp; metrics</span></li>
                         </ul>
                     </div>
                 </div>
                 <div class="security-item protected">
                     <span class="sec-icon">🔑</span>
                     <div>
-                        <strong>Protected (HTTP Basic)</strong>
+                        <strong th:text="#{ui.security.protected}">Protected (HTTP Basic)</strong>
                         <ul>
-                            <li><code>/admin/**</code> – Requires ROLE_ADMIN</li>
+                            <li><code>/admin/**</code> – <span th:text="#{ui.security.protected.admin}">Requires ROLE_ADMIN</span></li>
                         </ul>
-                        <p class="demo-note">Passwords encoded with BCryptPasswordEncoder</p>
+                        <p class="demo-note" th:text="#{ui.security.note}">Passwords encoded with BCryptPasswordEncoder</p>
                     </div>
                 </div>
             </div>
@@ -195,52 +202,69 @@
 
         <!-- SPRING ACTUATOR -->
         <div class="demo-section" id="actuator-demo">
-            <h3 class="demo-section-title">📊 Spring Actuator <span class="tag-badge">Spring Boot Actuator</span></h3>
-            <p class="demo-desc">Live health and application metrics via Spring Boot Actuator.</p>
+            <h3 class="demo-section-title">📊 <span th:text="#{ui.actuator.title}">Spring Actuator</span> <span class="tag-badge">Spring Boot Actuator</span></h3>
+            <p class="demo-desc" th:text="#{ui.actuator.desc}">Live health and application metrics via Spring Boot Actuator.</p>
             <div class="demo-controls">
-                <button class="demo-btn" onclick="loadActuatorHealth()">Check Health</button>
-                <button class="demo-btn" onclick="loadActuatorInfo()">App Info</button>
+                <button class="demo-btn" onclick="loadActuatorHealth()" th:text="#{ui.button.checkHealth}">Check Health</button>
+                <button class="demo-btn" onclick="loadActuatorInfo()" th:text="#{ui.button.appInfo}">App Info</button>
             </div>
-            <pre id="actuator-result" class="code-output">// Click a button to see live actuator data</pre>
+            <pre id="actuator-result" class="code-output" th:text="#{ui.actuatorResult.default}">// Click a button to see live actuator data</pre>
         </div>
 
         <!-- QUICK LINKS -->
         <div class="demo-section links-section">
-            <h3 class="demo-section-title">🔗 Quick Links</h3>
+            <h3 class="demo-section-title" th:text="#{ui.quickLinks}">🔗 Quick Links</h3>
             <div class="quick-links">
                 <a href="/swagger-ui.html" target="_blank" class="quick-link">
                     <span class="ql-icon">📖</span>
-                    <span>Swagger UI / API Docs</span>
+                    <span th:text="#{ui.link.swagger}">Swagger UI / API Docs</span>
                 </a>
                 <a href="/actuator/health" target="_blank" class="quick-link">
                     <span class="ql-icon">💚</span>
-                    <span>Actuator Health</span>
+                    <span th:text="#{ui.link.health}">Actuator Health</span>
                 </a>
                 <a href="/actuator/metrics" target="_blank" class="quick-link">
                     <span class="ql-icon">📈</span>
-                    <span>Actuator Metrics</span>
+                    <span th:text="#{ui.link.metrics}">Actuator Metrics</span>
                 </a>
                 <a href="/api/profile" target="_blank" class="quick-link">
                     <span class="ql-icon">👤</span>
-                    <span>Profile API</span>
+                    <span th:text="#{ui.link.profileApi}">Profile API</span>
                 </a>
                 <a href="/api/experiences" target="_blank" class="quick-link">
                     <span class="ql-icon">💼</span>
-                    <span>Experience API</span>
+                    <span th:text="#{ui.link.experienceApi}">Experience API</span>
                 </a>
                 <a href="/api/skills" target="_blank" class="quick-link">
                     <span class="ql-icon">⚡</span>
-                    <span>Skills API</span>
+                    <span th:text="#{ui.link.skillsApi}">Skills API</span>
                 </a>
                 <a href="/api/events" target="_blank" class="quick-link">
                     <span class="ql-icon">📨</span>
-                    <span>Kafka Events API</span>
+                    <span th:text="#{ui.link.kafkaEventsApi}">Kafka Events API</span>
                 </a>
             </div>
         </div>
     </div>
 </div>
 
+<script th:inline="javascript">
+    window.PORTFOLIO_I18N = {
+        currentLang: /*[[${#locale.language}]]*/ "en",
+        enterTechnology: /*[[#{js.enterTechnology}]]*/ "Please enter a technology name",
+        apiLoading: /*[[#{js.api.loading}]]*/ "// Loading...",
+        searchingFor: /*[[#{js.api.searchingFor}]]*/ "// Searching for experiences with: \"{0}\"...",
+        noExperiencesFound: /*[[#{js.api.noExperiencesFound}]]*/ "// No experiences found with technology: \"{0}\"",
+        enterMessage: /*[[#{js.kafka.enterMessage}]]*/ "Please enter a message",
+        kafkaEmpty: /*[[#{js.kafka.empty}]]*/ "No events yet. Publish a message above.",
+        kafkaErrorLoading: /*[[#{js.kafka.errorLoading}]]*/ "Error loading events: {0}",
+        statusWarningPrefix: /*[[#{js.status.warningPrefix}]]*/ "⚠️ ",
+        statusSuccessPrefix: /*[[#{js.status.successPrefix}]]*/ "✅ ",
+        statusErrorPrefix: /*[[#{js.status.errorPrefix}]]*/ "❌ Error: ",
+        actuatorLoadingHealth: /*[[#{js.actuator.loadingHealth}]]*/ "// Loading health data...",
+        actuatorLoadingInfo: /*[[#{js.actuator.loadingInfo}]]*/ "// Loading app info..."
+    };
+</script>
 <script src="/js/portfolio.js"></script>
 </body>
 </html>
