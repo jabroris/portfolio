@@ -139,6 +139,16 @@ a:hover { text-decoration: underline; }
     background: linear-gradient(135deg, #1e3a5f, #2c5282);
     padding: 28px 32px 24px;
     color: #fff;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    gap: 10px 14px;
+    align-items: start;
+}
+
+.name-header-main {
+    grid-column: 1;
+    grid-row: 1 / span 2;
 }
 
 .full-name {
@@ -159,7 +169,11 @@ a:hover { text-decoration: underline; }
 }
 
 .header-controls {
-    margin-top: 12px;
+    margin-top: 0;
+    grid-column: 2;
+    grid-row: 2;
+    justify-self: end;
+    align-self: end;
 }
 
 .download-pdf-btn {
@@ -187,7 +201,10 @@ a:hover { text-decoration: underline; }
     display: flex;
     gap: 8px;
     flex-wrap: wrap;
-    margin-top: 10px;
+    margin-top: 0;
+    grid-column: 2;
+    grid-row: 1;
+    justify-content: flex-end;
 }
 
 .lang-link-header {
@@ -607,6 +624,24 @@ a:hover { text-decoration: underline; }
 @media (max-width: 700px) {
     .resume { flex-direction: column; }
     .sidebar { width: 100%; min-width: unset; }
+    .name-header {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+    }
+    .name-header-main {
+        grid-column: 1;
+        grid-row: 1;
+    }
+    .lang-switcher-header {
+        grid-column: 1;
+        grid-row: 2;
+        justify-content: flex-start;
+    }
+    .header-controls {
+        grid-column: 1;
+        grid-row: 3;
+        justify-self: start;
+    }
     .security-grid { grid-template-columns: 1fr; }
     .demo-container { padding: 20px 16px; }
     .demo-controls { flex-direction: column; align-items: flex-start; }

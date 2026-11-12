@@ -9,12 +9,6 @@
     <link rel="stylesheet" href="/css/portfolio.css">
 </head>
 <body>
-<div class="lang-switcher" style="display:flex;justify-content:flex-end;gap:12px;padding:12px 20px;">
-    <a th:href="@{/(lang='en')}">English</a>
-    <a th:href="@{/(lang='bg')}">Български</a>
-    <a th:href="@{/(lang='fr')}">Français</a>
-</div>
-
 <!-- ===== RESUME SECTION ===== -->
 <div class="resume-wrapper">
     <div class="resume">
@@ -68,10 +62,9 @@
         <!-- MAIN CONTENT -->
         <main class="main-content">
             <header class="name-header">
-                <h1 class="full-name" th:text="${profile.name}">IVAYLO BLAGOEV</h1>
-                <p class="job-title" th:text="${profile.title}">Senior Software Engineer</p>
-                <div class="header-controls no-pdf">
-                    <button id="downloadResumePdfBtn" class="download-pdf-btn" type="button" th:text="#{ui.button.downloadResumePdf}">⬇️ Download Resume PDF</button>
+                <div class="name-header-main">
+                    <h1 class="full-name" th:text="${profile.name}">IVAYLO BLAGOEV</h1>
+                    <p class="job-title" th:text="${profile.title}">Senior Software Engineer</p>
                 </div>
                 <div class="lang-switcher-header no-pdf">
                     <a th:href="@{/(lang='en')}"
@@ -83,6 +76,9 @@
                     <a th:href="@{/(lang='fr')}"
                        th:classappend="${#locale.language == 'fr'} ? 'active'"
                        class="lang-link-header">🇫🇷 Français</a>
+                </div>
+                <div class="header-controls no-pdf">
+                    <button id="downloadResumePdfBtn" class="download-pdf-btn" type="button" th:text="#{ui.button.downloadResumePdf}">⬇️ Download Resume PDF</button>
                 </div>
             </header>
 
