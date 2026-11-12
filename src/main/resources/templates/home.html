@@ -9,12 +9,6 @@
     <link rel="stylesheet" href="/css/portfolio.css">
 </head>
 <body>
-<div class="lang-switcher" style="display:flex;justify-content:flex-end;gap:12px;padding:12px 20px;">
-    <a th:href="@{/(lang='en')}">English</a>
-    <a th:href="@{/(lang='bg')}">Български</a>
-    <a th:href="@{/(lang='fr')}">Français</a>
-</div>
-
 <!-- ===== RESUME SECTION ===== -->
 <div class="resume-wrapper">
     <div class="resume">
@@ -70,6 +64,17 @@
             <header class="name-header">
                 <h1 class="full-name" th:text="${profile.name}">IVAYLO BLAGOEV</h1>
                 <p class="job-title" th:text="${profile.title}">Senior Software Engineer</p>
+                <div class="lang-switcher-header">
+                    <a th:href="@{/(lang='en')}"
+                       th:classappend="${#locale.language == 'en'} ? 'active'"
+                       class="lang-link-header">🇬🇧 English</a>
+                    <a th:href="@{/(lang='bg')}"
+                       th:classappend="${#locale.language == 'bg'} ? 'active'"
+                       class="lang-link-header">🇧🇬 Български</a>
+                    <a th:href="@{/(lang='fr')}"
+                       th:classappend="${#locale.language == 'fr'} ? 'active'"
+                       class="lang-link-header">🇫🇷 Français</a>
+                </div>
             </header>
 
             <section class="content-section">
